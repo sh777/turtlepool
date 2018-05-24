@@ -24,8 +24,6 @@ services:
       - /var/data/turtle-pool/pool/config:/config:ro
       - /var/data/turtle-pool/pool/logs:/logs
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
     ports:
       - 3333:3333
       - 5555:5555
