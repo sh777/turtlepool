@@ -6,25 +6,15 @@ services:
     volumes:
       - /var/data/runtime/turtle-pool/daemon/{{.Task.Slot}}:/var/lib/turtlecoind/
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
-      - traefik_public
     ports:
       - 11897:11897
-    deploy:
-      replicas: 2
-      labels:
-        - traefik.frontend.rule=Host:explorer.turtle.didibaba.us
-        - traefik.docker.network=traefik_public
-        - traefik.port=11898
+    
 
   daemon-failsafe:
     image: funkypenguin/turtlecoind
     volumes:
       - /var/data/runtime/turtle-pool/daemon/failsafe:/var/lib/turtlecoind/
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
     entrypoint: |
       TurtleCoind --seed-node daemon --no-console --load-checkpoints /tmp/checkpoints/checkpoints.csv && sleep 1h
 
@@ -49,14 +39,6 @@ services:
       - /var/data/turtle-pool/pool/config:/config:ro
       - /var/data/turtle-pool/pool/logs:/logs
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
-      - traefik_public
-    deploy:
-      labels:
-        - traefik.frontend.rule=Host:api.turtle.didibaba.us
-        - traefik.docker.network=traefik_public
-        - traefik.port=8117
     entrypoint: |
       node init.js -module=api -config=/config/config.json
 
@@ -77,8 +59,6 @@ services:
       - /var/data/turtle-pool/pool/config:/config:ro
       - /var/data/turtle-pool/pool/logs:/logs
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
     entrypoint: |
       node init.js -module=payments -config=/config/config.json
 
@@ -88,8 +68,6 @@ services:
       - /var/data/turtle-pool/pool/config:/config:ro
       - /var/data/turtle-pool/pool/logs:/logs
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
     entrypoint: |
       node init.js -module=chartsDataCollector -config=/config/config.json
 
@@ -100,8 +78,6 @@ services:
       - /var/data/turtle-pool/wallet/container:/container
       - /var/data/turtle-pool/wallet/logs:/logs
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
     entrypoint: |
       walletd --config /config/wallet.conf | tee /logs/walletd.log
 
@@ -114,28 +90,10 @@ services:
     image: redis
     entrypoint: |
       redis-server /config/redis.conf
-    networks:
-      - internal
 
   nginx:
     volumes:
       - /var/data/turtle-pool/nginx/website:/usr/share/nginx/html:ro
       - /etc/localtime:/etc/localtime:ro
     image: nginx
-    networks:
-      - internal
-      - traefik_public
-    deploy:
-      labels:
-        - traefik.frontend.rule=Host:turtle.didibaba.us
-        - traefik.docker.network=traefik_public
-        - traefik.port=80
 
-networks:
-  traefik_public:
-    external: true
-  internal:
-    driver: overlay
-    ipam:
-      config:
-        - subnet: 172.16.21.0/24
