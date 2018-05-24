@@ -46,8 +46,6 @@ services:
       - /var/data/turtle-pool/pool/config:/config:ro
       - /var/data/turtle-pool/pool/logs:/logs
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
     entrypoint: |
       node init.js -module=unlocker -config=/config/config.json
 
