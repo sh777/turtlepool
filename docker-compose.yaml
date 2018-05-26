@@ -4,16 +4,15 @@ services:
   daemon:
     image: funkypenguin/turtlecoind
     volumes:
-      - /var/data/runtime/turtle-pool/daemon/{{.Task.Slot}}:/var/lib/turtlecoind/
+      - data/daemon:/var/lib/turtlecoind/
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 11897:11897
-    
-
+      
   daemon-failsafe:
     image: funkypenguin/turtlecoind
     volumes:
-      - /var/data/runtime/turtle-pool/daemon/failsafe:/var/lib/turtlecoind/
+      - data/failsafe:/var/lib/turtlecoind/
       - /etc/localtime:/etc/localtime:ro
     entrypoint: |
       TurtleCoind --seed-node daemon --no-console --load-checkpoints /tmp/checkpoints/checkpoints.csv && sleep 1h
@@ -21,8 +20,8 @@ services:
   pool-pool:
     image: funkypenguin/turtle-pool
     volumes:
-      - /var/data/turtle-pool/pool/config:/config:ro
-      - /var/data/turtle-pool/pool/logs:/logs
+      - turtle-pool:/config:ro
+      - data/logs:/logs
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 3333:3333
@@ -31,41 +30,6 @@ services:
     entrypoint: |
       node init.js -module=pool -config=/config/config.json
 
-  pool-api:
-    image: funkypenguin/turtle-pool
-    volumes:
-      - /var/data/turtle-pool/pool/config:/config:ro
-      - /var/data/turtle-pool/pool/logs:/logs
-      - /etc/localtime:/etc/localtime:ro
-    entrypoint: |
-      node init.js -module=api -config=/config/config.json
-
-  pool-unlocker:
-    image: funkypenguin/turtle-pool
-    volumes:
-      - /var/data/turtle-pool/pool/config:/config:ro
-      - /var/data/turtle-pool/pool/logs:/logs
-      - /etc/localtime:/etc/localtime:ro
-    entrypoint: |
-      node init.js -module=unlocker -config=/config/config.json
-
-  pool-payments:
-    image: funkypenguin/turtle-pool
-    volumes:
-      - /var/data/turtle-pool/pool/config:/config:ro
-      - /var/data/turtle-pool/pool/logs:/logs
-      - /etc/localtime:/etc/localtime:ro
-    entrypoint: |
-      node init.js -module=payments -config=/config/config.json
-
-  pool-charts:
-    image: funkypenguin/turtle-pool
-    volumes:
-      - /var/data/turtle-pool/pool/config:/config:ro
-      - /var/data/turtle-pool/pool/logs:/logs
-      - /etc/localtime:/etc/localtime:ro
-    entrypoint: |
-      node init.js -module=chartsDataCollector -config=/config/config.json
 
   wallet:
     image: funkypenguin/turtlecoind
