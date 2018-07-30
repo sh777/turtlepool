@@ -22,10 +22,8 @@ RUN apt-get update && \
     cd /opt/turtlecoin && \
     mkdir build && \
     cd build && \
-    export CXXFLAGS="-w -std=gnu++11" && \
-    #cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fassociative-math" -DCMAKE_CXX_FLAGS="-fassociative-math" -DSTATIC=true -DDO_TESTS=OFF .. && \
-    make -j$(nproc)
+    cmake .. && \
+    make
 
 FROM debian:9
 
