@@ -4,23 +4,30 @@ services:
   daemon:
     image: funkypenguin/turtlecoind
     volumes:
+<<<<<<< HEAD
       - /var/data/turtle-pool/daemon/1:/var/lib/turtlecoind/
+=======
+      - data/daemon:/var/lib/turtlecoind/
+>>>>>>> cab114d45e3b38a1018c35c4feacda0f6e52b76b
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 11897:11897
-    
-
+      
   daemon-failsafe:
     image: funkypenguin/turtlecoind
     volumes:
+<<<<<<< HEAD
       - /var/data/turtle-pool/daemon/failsafe:/var/lib/turtlecoind/
+=======
+      - data/failsafe:/var/lib/turtlecoind/
+>>>>>>> cab114d45e3b38a1018c35c4feacda0f6e52b76b
       - /etc/localtime:/etc/localtime:ro
 
   pool-pool:
     image: funkypenguin/turtle-pool
     volumes:
-      - /var/data/turtle-pool/pool/config:/config:ro
-      - /var/data/turtle-pool/pool/logs:/logs
+      - turtle-pool:/config:ro
+      - data/logs:/logs
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 3333:3333
@@ -28,7 +35,12 @@ services:
       - 7777:7777
       - 8117:8117
     entrypoint: |
+<<<<<<< HEAD
       node init.js -config=/config/config.json
+=======
+      node init.js -module=pool -config=/config/config.json
+
+>>>>>>> cab114d45e3b38a1018c35c4feacda0f6e52b76b
 
   
   wallet:
