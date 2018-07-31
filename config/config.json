@@ -6,8 +6,8 @@
 
     "logging": {
         "files": {
-            "level": "info",
-            "directory": "logs",
+            "level": "debug",
+            "directory": "/logs",
             "flushInterval": 5
         },
         "console": {

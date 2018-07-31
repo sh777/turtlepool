@@ -2,32 +2,24 @@ version: '3'
 
 services:
   daemon:
-    image: funkypenguin/turtlecoind
+    image: turtlecoin
     volumes:
-<<<<<<< HEAD
       - /var/data/turtle-pool/daemon/1:/var/lib/turtlecoind/
-=======
-      - data/daemon:/var/lib/turtlecoind/
->>>>>>> cab114d45e3b38a1018c35c4feacda0f6e52b76b
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 11897:11897
       
   daemon-failsafe:
-    image: funkypenguin/turtlecoind
+    image: turtlecoin
     volumes:
-<<<<<<< HEAD
       - /var/data/turtle-pool/daemon/failsafe:/var/lib/turtlecoind/
-=======
-      - data/failsafe:/var/lib/turtlecoind/
->>>>>>> cab114d45e3b38a1018c35c4feacda0f6e52b76b
       - /etc/localtime:/etc/localtime:ro
 
   pool-pool:
     image: funkypenguin/turtle-pool
     volumes:
-      - turtle-pool:/config:ro
-      - data/logs:/logs
+      - ./config:/config:ro
+      - /var/data/pool-pool/logs:/logs
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 3333:3333
@@ -35,31 +27,26 @@ services:
       - 7777:7777
       - 8117:8117
     entrypoint: |
-<<<<<<< HEAD
       node init.js -config=/config/config.json
-=======
-      node init.js -module=pool -config=/config/config.json
-
->>>>>>> cab114d45e3b38a1018c35c4feacda0f6e52b76b
 
   
   wallet:
-    image: funkypenguin/turtlecoind
+    image: turtlecoin
     volumes:
-      - /var/data/turtle-pool/wallet/config:/config:ro
-      - /var/data/turtle-pool/wallet/container:/container
-      - /var/data/turtle-pool/wallet/logs:/logs
+      - ./config:/config:ro
+      - /var/data/wallet/container:/container
+      - /var/data/wallet/logs:/logs
       - /etc/localtime:/etc/localtime:ro
     entrypoint: |
       walletd --config /config/wallet.conf | tee /logs/walletd.log
 
   redis:
     volumes:
-      - /var/data/turtle-pool/redis/config:/config:ro
+      - ./config:/config:ro
       - /var/data/turtle-pool/redis/data:/data
       - /var/data/turtle-pool/redis/logs:/logs
       - /etc/localtime:/etc/localtime:ro
-    image: redis
+    image: redis:4.0.10
     entrypoint: |
       redis-server /config/redis.conf
 
@@ -67,5 +54,7 @@ services:
     volumes:
       - /var/data/turtle-pool/nginx/website:/usr/share/nginx/html:ro
       - /etc/localtime:/etc/localtime:ro
-    image: nginx
+    image: nginx:1.15.2
+    ports:
+      - 80:80
 
