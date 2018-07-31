@@ -8,6 +8,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 11897:11897
+      - 11898:11898
       
   daemon-failsafe:
     image: turtlecoin

@@ -111,7 +111,7 @@
 
     "daemon": {
         "host": "daemon",
-        "port": 11897
+        "port": 11898
     },
 
     "wallet": {
