@@ -10,10 +10,8 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* && \
   chmod +x /wait-for-it.sh
 
-RUN git clone https://github.com/turtlecoin/turtle-pool /opt/turtle-pool && \
-  cd /opt/turtle-pool
+RUN git clone https://github.com/turtlecoin/turtle-pool /pool 
 
-ADD . /pool/
 WORKDIR /pool/
 
 RUN npm update
