@@ -4,7 +4,7 @@ services:
   daemon:
     image: turtlecoin
     volumes:
-      - /var/data/turtle-pool/daemon/1:/var/lib/turtlecoind/
+      - /var/data/daemon/1:/var/lib/turtlecoind/
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 11897:11897
@@ -12,7 +12,7 @@ services:
   daemon-failsafe:
     image: turtlecoin
     volumes:
-      - /var/data/turtle-pool/daemon/failsafe:/var/lib/turtlecoind/
+      - /var/data/daemon/failsafe:/var/lib/turtlecoind/
       - /etc/localtime:/etc/localtime:ro
 
   pool-pool:
@@ -43,8 +43,8 @@ services:
   redis:
     volumes:
       - ./config:/config:ro
-      - /var/data/turtle-pool/redis/data:/data
-      - /var/data/turtle-pool/redis/logs:/logs
+      - /var/data/redis/data:/data
+      - /var/data/redis/logs:/logs
       - /etc/localtime:/etc/localtime:ro
     image: redis:4.0.10
     entrypoint: |
@@ -52,7 +52,7 @@ services:
 
   nginx:
     volumes:
-      - /var/data/turtle-pool/nginx/website:/usr/share/nginx/html:ro
+      - /var/data/nginx/website:/usr/share/nginx/html:ro
       - /etc/localtime:/etc/localtime:ro
     image: nginx:1.15.2
     ports:
