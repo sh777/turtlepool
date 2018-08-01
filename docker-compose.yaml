@@ -61,7 +61,6 @@ services:
 
   nginx:
     volumes:
-      - /var/data/nginx/website:/usr/share/nginx/html:ro
       - /etc/localtime:/etc/localtime:ro
     image: turtlecoin-web
     ports:
