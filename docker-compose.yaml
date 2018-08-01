@@ -32,7 +32,7 @@ services:
       - redis
       - daemon
     entrypoint: |
-      sleep 20s; node init.js -config=/config/config.json
+      node init.js -config=/config/config.json
 
   
   wallet:
@@ -45,7 +45,7 @@ services:
     depends_on:
       - daemon
     entrypoint: |
-      sleep 10s; /home/turtlecoin/walletd --config /config/wallet.conf | tee /logs/walletd.log
+      /home/turtlecoin/walletd --config /config/wallet.conf | tee /logs/walletd.log
 
   redis:
     volumes:
