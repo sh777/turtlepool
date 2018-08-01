@@ -7,7 +7,7 @@ RUN apt-get update \
 RUN git clone https://github.com/turtlecoin/turtle-pool \
   && mv turtle-pool/website/* /usr/share/nginx/html
 
-ADD config/config.js /usr/share/nginx/html
+ADD config.js /usr/share/nginx/html
 
 EXPOSE 80
 EXPOSE 443
