@@ -54,6 +54,8 @@ services:
       - /var/data/redis/logs:/logs
       - /etc/localtime:/etc/localtime:ro
     image: redis:4.0.10
+    ports:
+      - 6379:6379
     entrypoint: |
       redis-server /config/redis.conf
 
