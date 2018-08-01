@@ -27,6 +27,10 @@ services:
       - 5555:5555
       - 7777:7777
       - 8117:8117
+    depends_on:
+      - wallet
+      - reids
+      - daemon
     entrypoint: |
       node init.js -config=/config/config.json
 
@@ -38,6 +42,8 @@ services:
       - /var/data/wallet/container:/container
       - /var/data/wallet/logs:/logs
       - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - daemon
     entrypoint: |
       walletd --config /config/wallet.conf | tee /logs/walletd.log
 

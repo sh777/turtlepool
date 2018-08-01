@@ -2,7 +2,8 @@ FROM ubuntu:xenial
 
 RUN apt-get update && \
     apt-get install -y curl && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* &&\
+    mkdir /home/turtlecoin
 
 ENV TURTLE_VERSION=0.6.3 
 
@@ -10,7 +11,7 @@ WORKDIR /home/turtlecoin
 
 RUN curl -OL https://github.com/turtlecoin/turtlecoin/releases/download/v${TURTLE_VERSION}/turtlecoin-v${TURTLE_VERSION}-linux.tar.gz && \
     tar -xvzf turtlecoin-v${TURTLE_VERSION}-linux.tar.gz &&\
-    mv turtlecoin-v${TURTLE_VERSION}/* . &&\
+    mv turtlecoin-v${TURTLE_VERSION}/* /home/turtlecoin &&\
     rm -rf turtlecoin-v${TURTLE_VERSION} &&\
     curl -OL https://github.com/turtlecoin/checkpoints/raw/master/checkpoints.csv
 
