@@ -5,7 +5,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/turtlecoin/turtle-pool \
-  && mv website/* /usr/share/nginx/html
+  && mv turtle-pool/website/* /usr/share/nginx/html
 
 ADD config/config.js /usr/share/nginx/html
 
