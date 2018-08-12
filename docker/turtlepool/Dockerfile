@@ -10,7 +10,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* && \
   chmod +x /wait-for-it.sh
 
-RUN git clone https://github.com/turtlecoin/turtle-pool /pool 
+RUN git clone https://github.com/dvandal/cryptonote-nodejs-pool /pool 
 
 WORKDIR /pool/
 
@@ -19,6 +19,7 @@ RUN npm update
 RUN mkdir -p /config
 
 EXPOSE 8117
+EXPOSE 8118
 EXPOSE 3333
 EXPOSE 5555
 EXPOSE 7777

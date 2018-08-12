@@ -1,5 +1,5 @@
 {
-    "poolHost": "0.0.0.0",
+    "poolHost": "47.75.124.123",
 
     "coin": "turtlecoin",
     "symbol": "TRTL",
@@ -112,7 +112,7 @@
     },
 
     "daemon": {
-        "host": "public.turtlenode.io",
+        "host": "daemon",
         "port": 11898
     },
 
