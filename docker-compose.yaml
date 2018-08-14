@@ -2,7 +2,7 @@ version: '3'
 
 services:
   daemon:
-    image: turtlecoin
+    image: registry.cn-hongkong.aliyuncs.com/turtlecoin/turtlecoin-daemon:latest
     volumes:
       - /var/data/daemon/1:/var/lib/turtlecoind/
       - /etc/localtime:/etc/localtime:ro
@@ -17,7 +17,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
   pool-pool:
-    image: funkypenguin/turtle-pool
+    image: registry.cn-hongkong.aliyuncs.com/turtlecoin/turtlecoin-pool:latest
     volumes:
       - ./config:/config:ro
       - /var/data/pool-pool/logs:/logs
@@ -31,20 +31,17 @@ services:
     depends_on:
       - wallet
       - redis
-      - daemon
     entrypoint: |
       node init.js -config=/config/config.json
 
   
   wallet:
-    image: turtlecoin
+    image: registry.cn-hongkong.aliyuncs.com/turtlecoin/turtlecoin-daemon:latest
     volumes:
       - ./config:/config:ro
       - /var/data/wallet/container:/container
       - /var/data/wallet/logs:/logs
       - /etc/localtime:/etc/localtime:ro
-    depends_on:
-      - daemon
     ports:
       - 8070:8070
     entrypoint: |
